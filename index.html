@@ -68,15 +68,15 @@
         <!-- Counter & Progress Section -->
         <div class="bg-white rounded-3xl p-5 shadow-md border border-amber-100 flex flex-col items-center">
             
-            <!-- Circular Progress & Count Display -->
-            <div class="relative w-44 h-44 flex items-center justify-center mb-4">
-                <svg class="w-full h-full" viewBox="0 0 120 120">
+            <!-- Circular Progress & Count Display (Clickable) -->
+            <div onclick="incrementCount()" role="button" tabindex="0" aria-label="တစ်ကြိမ် တိုးမည်" class="relative w-44 h-44 flex items-center justify-center mb-4 cursor-pointer rounded-full active:scale-95 transition-transform duration-150 hover:bg-amber-50/40">
+                <svg class="w-full h-full pointer-events-none" viewBox="0 0 120 120">
                     <!-- Background Circle -->
                     <circle class="text-amber-100" stroke-width="10" stroke="currentColor" fill="transparent" r="52" cx="60" cy="60" />
                     <!-- Progress Circle -->
                     <circle id="progress-circle" class="progress-ring__circle text-amber-600" stroke-width="10" stroke-linecap="round" stroke="currentColor" fill="transparent" r="52" cx="60" cy="60" stroke-dasharray="326.72" stroke-dashoffset="326.72" />
                 </svg>
-                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
                     <span class="text-xs text-stone-400 font-medium">ရွတ်ဆိုပြီး</span>
                     <div class="flex items-baseline justify-center">
                         <span id="count-display" class="text-4xl sm:text-5xl font-bold text-amber-900">0</span>
@@ -85,14 +85,6 @@
                     <span id="status-badge" class="mt-1 px-2 py-0.5 text-[10px] font-semibold rounded-full bg-stone-100 text-stone-500">စတင်ရန်</span>
                 </div>
             </div>
-
-            <!-- Main Tap Button -->
-            <button id="tap-btn" onclick="incrementCount()" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 active:scale-95 text-white font-bold text-lg shadow-lg shadow-amber-600/30 transition-all flex items-center justify-center gap-2 animate-pulse-gold cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-                <span>တစ်ကြိမ် ပြီးပါပြီ (မှတ်မည်)</span>
-            </button>
 
             <!-- Secondary Controls -->
             <div class="w-full flex items-center justify-between mt-4 pt-3 border-t border-stone-100 text-xs sm:text-sm">
@@ -267,26 +259,22 @@
 
             // Status Badge & Button Appearance
             const badge = document.getElementById('status-badge');
-            const tapBtn = document.getElementById('tap-btn');
             
             if (state.count >= TARGET_COUNT) {
                 badge.textContent = "ပြည့်မြောက်ပါပြီ";
                 badge.className = "mt-1 px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-700";
                 circle.classList.remove('text-amber-600');
                 circle.classList.add('text-emerald-500');
-                tapBtn.classList.remove('animate-pulse-gold');
             } else if (state.count > 0) {
                 badge.textContent = `ကျန် ${TARGET_COUNT - state.count} ကြိမ်`;
                 badge.className = "mt-1 px-2.5 py-0.5 text-[10px] font-semibold rounded-full bg-amber-100 text-amber-800";
                 circle.classList.add('text-amber-600');
                 circle.classList.remove('text-emerald-500');
-                tapBtn.classList.add('animate-pulse-gold');
             } else {
                 badge.textContent = "စတင်ရန်";
                 badge.className = "mt-1 px-2.5 py-0.5 text-[10px] font-semibold rounded-full bg-stone-100 text-stone-500";
                 circle.classList.add('text-amber-600');
                 circle.classList.remove('text-emerald-500');
-                tapBtn.classList.add('animate-pulse-gold');
             }
 
             // Sound toggle button
