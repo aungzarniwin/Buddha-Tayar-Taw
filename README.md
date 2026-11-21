@@ -1,1 +1,0 @@
-# Buddha-Tayar-Taw
